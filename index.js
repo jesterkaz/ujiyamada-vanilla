@@ -10,6 +10,33 @@ $(function(){
 	var stamp07 = $.cookie('stamp07');
 	var stamp08 = $.cookie('stamp08');
 	var stamp09 = $.cookie('stamp09');
+	if(stamp01 == null){ //エラーが出ないように
+        stamp01 = 0;
+    }
+	if(stamp02 == null){
+        stamp02 = 0;
+    }
+	if(stamp03 == null){
+        stamp03 = 0;
+    }
+	if(stamp04 == null){
+        stamp04 = 0;
+    }
+	if(stamp05 == null){
+        stamp05 = 0;
+    }
+	if(stamp06 == null){
+        stamp06 = 0;
+    }
+	if(stamp07 == null){
+        stamp07 = 0;
+    }
+	if(stamp08 == null){
+        stamp08 = 0;
+    }
+	if(stamp09 == null){
+        stamp09 = 0;
+    }
 	
 	stampall = stamp01 + stamp02 + stamp03 + stamp04 + stamp05 + stamp06 + stamp07 + stamp08 + stamp09;
 
@@ -31,7 +58,7 @@ $(function(){
 	}
 	
 	//スタンプ数の表示
-	if(stampall === "0"){
+	if(stampall === 0 || stampall === "null"){
 		$('#visitnum').text('まだスタンプを集めていません。');
 	}
 	else if(stampall < 9){
