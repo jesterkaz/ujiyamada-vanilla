@@ -40,9 +40,9 @@ $(function(){
 
 	stampall = stamp01 + stamp02 + stamp03 + stamp04 + stamp05 + stamp06 + stamp07 + stamp08 + stamp09;
 	$.cookie('stampall', stampall, {expires: 7});
-	
+
 	//スタンプの処理
-	if($('#visit-stamp td:eq('+stamlall+') span').length){ //指定のtd要素があるか判定
+	if($('#visit-stamp td:eq('+stamplall+') span').length){ //指定のtd要素があるか判定
 		//過去に訪問したぶんのスタンプを表示
 		if($('#visit-stamp td:lt('+stampall+') span').length){
 			$('#visit-stamp td:lt('+stampall+') span').addClass('visited');
