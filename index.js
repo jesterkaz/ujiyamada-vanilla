@@ -38,21 +38,22 @@ $(function(){
         stamp09 = 0;
     }
 
-	stampall = stamp01 + stamp02 + stamp03 + stamp04 + stamp05 + stamp06 + stamp07 + stamp08 + stamp09;
+	stampall = parseFloat(stamp01) + parseFloat(stamp02) + parseFloat(stamp03) + parseFloat(stamp04) + parseFloat(stamp05) + parseFloat(stamp06) + parseFloat(stamp07) + parseFloat(stamp08) + parseFloat(stamp09);
 	$.cookie('stampall', stampall, {expires: 7});
 
 	//スタンプの処理
-	if($('#visit-stamp td:eq('+stamplall+') span').length){ //指定のtd要素があるか判定
+	if($('#visit-stamp td:eq('+stampall+') span').length){ //指定のtd要素があるか判定
 		//過去に訪問したぶんのスタンプを表示
-		if($('#visit-stamp td:lt('+stampall+') span').length){
+		if($('#visit-stamp td:lt('+stampall+') span')){
 			$('#visit-stamp td:lt('+stampall+') span').addClass('visited');
 		}
 		//今回訪問したぶんのスタンプをアニメーションで表示 ※※個別でアニメーションするように後日修正
-		 setTimeout(function(){
+		if(stampall > 0){
+		setTimeout(function(){
 			$('#visit-stamp td:eq('+stampall+') span')
 				.css('transition','all 0.5s ease-in')
 				.addClass('visited');
-		 },300);
+		},300)};
 	}else{
 		//訪問回数がtd要素の数を超えたらすべて表示
 		$('#visit-stamp td:lt('+stampall+') span').addClass('visited');
