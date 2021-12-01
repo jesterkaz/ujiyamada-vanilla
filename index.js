@@ -1,60 +1,107 @@
 $(function(){
 	
 	//Cookieの読み込み
-	var stamplist = $.cookie('stamplist');
-	if(stamplist == null){
-		var stamplist = [0,0,0,0,0,0,0,0,0]
-	}
-	else if(stamplist == [0,0,0,0,0,0,0,0,0]){
-		
-	}
+	var stamp01 = $.cookie('stamp01');
+	var stamp02 = $.cookie('stamp02');
+	var stamp03 = $.cookie('stamp03');
+	var stamp04 = $.cookie('stamp04');
+	var stamp05 = $.cookie('stamp05');
+	var stamp06 = $.cookie('stamp06');
+	var stamp07 = $.cookie('stamp07');
+	var stamp08 = $.cookie('stamp08');
+	var stamp09 = $.cookie('stamp09');
 
-	$.cookie('stamplist', stamplist, {expires: 7});
-	
-	$.removeCookie('stampall');
-	var stampall = 0;
+	var beforestamp01 = $.cookie('beforestamp01');
+	var beforestamp02 = $.cookie('beforestamp02');
+	var beforestamp03 = $.cookie('beforestamp03');
+	var beforestamp04 = $.cookie('beforestamp04');
+	var beforestamp05 = $.cookie('beforestamp05');
+	var beforestamp06 = $.cookie('beforestamp06');
+	var beforestamp07 = $.cookie('beforestamp07');
+	var beforestamp08 = $.cookie('beforestamp08');
+	var beforestamp09 = $.cookie('beforestamp09');
 
-	console.log(stamplist);
-	
-	for(var i=0;i<9;i++){
-		stampall += stamplist[i]
-		console.log(stamplist[i]);
-	}
-
-	$.cookie('stampall', stampall, {expires: 7});
-
+	if(stamp01 == null){ //エラーが出ないように
+        stamp01 = -1;
+		$.cookie('beforestamp01', stamp01, {expires: 7});
+    }
+	if(stamp02 == null){
+        stamp02 = -1;
+		$.cookie('beforestamp02', stamp02, {expires: 7});
+    }
+	if(stamp03 == null){
+        stamp03 = -1;
+		$.cookie('beforestamp03', stamp03, {expires: 7});
+    }
+	if(stamp04 == null){
+        stamp04 = -1;
+		$.cookie('beforestamp04', stamp04, {expires: 7});
+    }
+	if(stamp05 == null){
+        stamp05 = -1;
+		$.cookie('beforestamp05', stamp05, {expires: 7});
+    }
+	if(stamp06 == null){
+        stamp06 = -1;
+		$.cookie('beforestamp06', stamp06, {expires: 7});
+    }
+	if(stamp07 == null){
+        stamp07 = -1;
+		$.cookie('beforestamp07', stamp07, {expires: 7});
+    }
+	if(stamp08 == null){
+        stamp08 = -1;
+		$.cookie('beforestamp08', stamp08, {expires: 7});
+    }
+	if(stamp09 == null){
+        stamp09 = -1;
+		$.cookie('beforestamp09', stamp09, {expires: 7});
+    }
 
 	//スタンプの処理
-	if($('#visit-stamp td:eq('+stampall+') span').length){ //指定のtd要素があるか判定
-		//過去に訪問したぶんのスタンプを表示
-		if($('#visit-stamp td:lt('+stampall+') span')){
-			$('#visit-stamp td:lt('+stampall+') span').addClass('visited');
+	for(var i=0 ; i<9 ; i++){
+		//今回訪問したぶんのスタンプをアニメーションで表示
+		if(eval('stamp0'+ (i+1) ) == (i+1) && eval('beforestamp0'+ (i+1) ) == -1){
+			var x = i;
+			setTimeout(function(){
+				$('#visit-stamp td:eq('+x+') span')
+					.css('transition','all 0.5s ease-in')
+					.addClass('visited');
+			 },300);
 		}
-		//今回訪問したぶんのスタンプをアニメーションで表示 ※※個別でアニメーションするように後日修正
-		if(stampall === 1){
-		setTimeout(function(){
-			$('#visit-stamp td:eq('+stampall+') span')
-				.css('transition','all 0.5s ease-in')
-				.addClass('visited');
-		},300)};
-	}else{
-		//訪問回数がtd要素の数を超えたらすべて表示
-		$('#visit-stamp td:lt('+stampall+') span').addClass('visited');
+		if(eval('beforestamp0'+ (i+1) ) == (i+1) ){
+			//訪問回数がtd要素の数を超えたらすべて表示
+			$('#visit-stamp td:eq('+i+') span').addClass('visited');
+		}
 	}
-	
+
+	var stampall = 0;
+	for(var i=0;i<9;i++){
+		if(eval('stamp0'+(i+1)) == (i+1)){
+			stampall++;
+		}
+	}
+
+	$.cookie('beforestamp01', stamp01, {expires: 7});
+	$.cookie('beforestamp02', stamp02, {expires: 7});
+	$.cookie('beforestamp03', stamp03, {expires: 7});
+	$.cookie('beforestamp04', stamp04, {expires: 7});
+	$.cookie('beforestamp05', stamp05, {expires: 7});
+	$.cookie('beforestamp06', stamp06, {expires: 7});
+	$.cookie('beforestamp07', stamp07, {expires: 7});
+	$.cookie('beforestamp08', stamp08, {expires: 7});
+	$.cookie('beforestamp09', stamp09, {expires: 7});
+
 	//スタンプ数の表示
-	if(stampall == 0){
+	if(stampall === 0){
 		$('#visitnum').text('まだスタンプを集めていません。');
 	}
 	else if(stampall < 9){
 		$('#visitnum').text('現在、スタンプを'+ stampall +'個集めています。');
 	}
-	else if(stampall == 9){
+	else{
 		$('#visitnum').text('おめでとうございます、スタンプを集めきりました！');
 	}	
-	else{
-		$('#visitnum').text('エラー：stampallの中身がおかしくなってます');
-	}
 	//Cookieのリセットクリック時の処理
 	$('#reset').click(function(){
 		$.removeCookie('stampall');
@@ -68,6 +115,15 @@ $(function(){
 		$.removeCookie('stamp07');
 		$.removeCookie('stamp08');
 		$.removeCookie('stamp09');
+		$.removeCookie('beforestamp01');
+		$.removeCookie('beforestamp02');
+		$.removeCookie('beforestamp03');
+		$.removeCookie('beforestamp04');
+		$.removeCookie('beforestamp05');
+		$.removeCookie('beforestamp06');
+		$.removeCookie('beforestamp07');
+		$.removeCookie('beforestamp08');
+		$.removeCookie('beforestamp09');
 		alert("Cookieをリセットしました。")
 	});
 	

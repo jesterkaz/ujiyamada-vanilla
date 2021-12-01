@@ -27,7 +27,6 @@
 }
 #visit-stamp td span {
 	display: inline-block;
-	padding: auto auto;
 	position: absolute;
 	/* スタンプアニメーションのための初期値 */
 	visibility: hidden;
