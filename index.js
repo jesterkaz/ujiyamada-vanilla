@@ -61,8 +61,9 @@ $(function(){
 	//スタンプの処理
 	for(var i=0 ; i<9 ; i++){
 		//今回訪問したぶんのスタンプをアニメーションで表示
-		if(eval('stamp0'+ (i+1) ) == (i+1) && eval('beforestamp0'+ (i+1) ) == -1){
-			var x = i;
+		if(eval('stamp0'+ (i+1) ) == (i+1) && eval('beforestamp0'+ (i+1) ) == -1){ 
+		　　//今回のスタンプが押されている＆前回のスタンプが押されていない場合はアニメーションを表示
+			var x = i;  　　　　　　　　　　//何故かsetTimeoutの中でiが引き継げなかったのでxに値を避難
 			setTimeout(function(){
 				$('#visit-stamp td:eq('+x+') span')
 					.css('transition','all 0.5s ease-in')
@@ -70,18 +71,19 @@ $(function(){
 			 },300);
 		}
 		if(eval('beforestamp0'+ (i+1) ) == (i+1) ){
-			//訪問回数がtd要素の数を超えたらすべて表示
+			//前回のスタンプが押されている場合はそのまま表示
 			$('#visit-stamp td:eq('+i+') span').addClass('visited');
 		}
 	}
 
-	var stampall = 0;
+	var stampall = 0;   //スタンプ集計
 	for(var i=0;i<9;i++){
 		if(eval('stamp0'+(i+1)) == (i+1)){
 			stampall++;
 		}
 	}
 
+	//スタンプの状態を保存
 	$.cookie('beforestamp01', stamp01, {expires: 7});
 	$.cookie('beforestamp02', stamp02, {expires: 7});
 	$.cookie('beforestamp03', stamp03, {expires: 7});
@@ -104,8 +106,6 @@ $(function(){
 	}	
 	//Cookieのリセットクリック時の処理
 	$('#reset').click(function(){
-		$.removeCookie('stampall');
-		$.removeCookie('stamplist');
 		$.removeCookie('stamp01');
 		$.removeCookie('stamp02');
 		$.removeCookie('stamp03');
