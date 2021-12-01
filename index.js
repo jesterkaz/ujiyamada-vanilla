@@ -1,45 +1,28 @@
 $(function(){
 	
 	//Cookieの読み込み
-	var stamp01 = $.cookie('stamp01');
-	var stamp02 = $.cookie('stamp02');
-	var stamp03 = $.cookie('stamp03');
-	var stamp04 = $.cookie('stamp04');
-	var stamp05 = $.cookie('stamp05');
-	var stamp06 = $.cookie('stamp06');
-	var stamp07 = $.cookie('stamp07');
-	var stamp08 = $.cookie('stamp08');
-	var stamp09 = $.cookie('stamp09');
-	if(stamp01 == null){ //エラーが出ないように
-        stamp01 = 0;
-    }
-	if(stamp02 == null){
-        stamp02 = 0;
-    }
-	if(stamp03 == null){
-        stamp03 = 0;
-    }
-	if(stamp04 == null){
-        stamp04 = 0;
-    }
-	if(stamp05 == null){
-        stamp05 = 0;
-    }
-	if(stamp06 == null){
-        stamp06 = 0;
-    }
-	if(stamp07 == null){
-        stamp07 = 0;
-    }
-	if(stamp08 == null){
-        stamp08 = 0;
-    }
-	if(stamp09 == null){
-        stamp09 = 0;
-    }
+	var stamplist = $.cookie('stamplist');
+	if(stamplist == null){
+		var stamplist = [0,0,0,0,0,0,0,0,0]
+	}
+	else if(stamplist == [0,0,0,0,0,0,0,0,0]){
+		
+	}
 
-	stampall = parseFloat(stamp01) + parseFloat(stamp02) + parseFloat(stamp03) + parseFloat(stamp04) + parseFloat(stamp05) + parseFloat(stamp06) + parseFloat(stamp07) + parseFloat(stamp08) + parseFloat(stamp09);
+	$.cookie('stamplist', stamplist, {expires: 7});
+	
+	$.removeCookie('stampall');
+	var stampall = 0;
+
+	console.log(stamplist);
+	
+	for(var i=0;i<9;i++){
+		stampall += stamplist[i]
+		console.log(stamplist[i]);
+	}
+
 	$.cookie('stampall', stampall, {expires: 7});
+
 
 	//スタンプの処理
 	if($('#visit-stamp td:eq('+stampall+') span').length){ //指定のtd要素があるか判定
@@ -48,7 +31,7 @@ $(function(){
 			$('#visit-stamp td:lt('+stampall+') span').addClass('visited');
 		}
 		//今回訪問したぶんのスタンプをアニメーションで表示 ※※個別でアニメーションするように後日修正
-		if(stampall > 0){
+		if(stampall === 1){
 		setTimeout(function(){
 			$('#visit-stamp td:eq('+stampall+') span')
 				.css('transition','all 0.5s ease-in')
@@ -60,18 +43,22 @@ $(function(){
 	}
 	
 	//スタンプ数の表示
-	if(stampall === 0 || stampall === "null"){
+	if(stampall == 0){
 		$('#visitnum').text('まだスタンプを集めていません。');
 	}
 	else if(stampall < 9){
 		$('#visitnum').text('現在、スタンプを'+ stampall +'個集めています。');
 	}
-	else{
+	else if(stampall == 9){
 		$('#visitnum').text('おめでとうございます、スタンプを集めきりました！');
 	}	
+	else{
+		$('#visitnum').text('エラー：stampallの中身がおかしくなってます');
+	}
 	//Cookieのリセットクリック時の処理
 	$('#reset').click(function(){
 		$.removeCookie('stampall');
+		$.removeCookie('stamplist');
 		$.removeCookie('stamp01');
 		$.removeCookie('stamp02');
 		$.removeCookie('stamp03');

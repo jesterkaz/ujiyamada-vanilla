@@ -5,10 +5,10 @@ location.href='index.html';
 
 $(function(){	
 	//Cookieの読み込み
-	var stamp08 = $.cookie('stamp03');
+	var stamplist = $.cookie('stamplist');
     //訪問数のカウント
-    if(stamp08 == null){ //最初の訪問
-        stamp08 = 1;
+    if(stamplist[7] == 0){ //最初の訪問
+        stamplist[7] = 1;
     }
-    $.cookie('stamp08', stamp08, {expires: 7});
+    $.cookie('stamplist', stamplist, {expires: 7});
 });
